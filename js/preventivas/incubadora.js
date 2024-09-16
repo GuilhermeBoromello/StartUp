@@ -153,7 +153,8 @@ $(document).ready(function () {
     $("#btnSalvar").click(function () {
         var parametros = {
             "EquipamentoId": params[0],
-            "Data": moment($('#txtData').val()).format(),
+            // "Data": moment($('#txtData').val()).format(),
+            "Data": $('#txtData').val(),
             "Setor": $('#txtSetor').val(),
             "Equipamento": $('#txtEquipamento').val(),
             "Modelo": $('#txtModelo').val(),
