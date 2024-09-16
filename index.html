@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>NeoNatal Guard - Inspeções</title>
+    <!-- <script src="https://s3.amazonaws.com/stitch-sdks/js/bundles/4.3.1/stitch.js"></script> -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="shortcut icon" href="src/img/NN.png" type="image/x-icon">
+
+    <!-- Font-Awesome -->
+    <script src="https://kit.fontawesome.com/0c8bd17229.js" crossorigin="anonymous"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@200;300;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body class="d-flex">
+    <header class="py-3 d-flex flex-column align-items-center p-2">
+        <nav id="menu" class="d-flex flex-column flex-grow-1 align-items-center">
+            <img src="src/img/NN.png" alt="" class="d-block">
+
+            <ul class="list-unstyled d-flex flex-column flex-grow-1 align-items-center justify-content-center p-0">
+                <li class="menu-main-li mt-auto">
+                    <a href="#" class="menu-link justify-content-between" data-bs-toggle="tooltip"
+                        data-bs-placement="right" title="Inspeções">
+                        <i class="fa-solid fa-binoculars mr-1"></i>
+                    </a>
+                </li>
+
+                <li class="menu-main-li mt-auto">
+                    <a href="#" class="menu-link" data-bs-toggle="tooltip" data-bs-placement="right" title="Sair">
+                        <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="py-3">
+        <div class="container bg-white d-flex flex-column h-100 shadow py-2">
+            <div class="row" id="header-panel">
+                <div class="col">
+                    <div class="row">
+                        <div class="col d-flex align-items-end">
+                            <h1 id="section-title">Neonatal Guard</h1>
+                            <h2 id="section-subtitle" class="ml-4">Operador</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p>Inspeções</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="actionPanel">
+                <div class="col-6 d-flex">
+                    <input type="text" name="" id="txtSearch" class="form-control ml-0 mr-3 bg-light"
+                        placeholder="Pesquisar...">
+                    <select name="filtro" id="selectPesquisa" class="form-control bg-light">
+                        <option value="MO">Modelo</option>
+                        <option value="NS">Número de série</option>
+                    </select>
+
+                    <button type="button" class="btn btn-primary btnAccent ml-3 shadow" id="btnPesquisar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <span class="sr-only">Pesquisar</span>
+                    </button>
+                    <button type="button" class="btn btn-danger ml-2 shadow" id="btnLimpar">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+
+                <div class="col-2 text-right">
+                    <a href="#" class="btn btn-primary btnAccent shadow" data-toggle="modal"
+                        data-target="#staticBackdrop" id="addRO">
+                        <i class="fa-solid fa-plus"></i>
+                        <span class="sr-only">Adicionar</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- <div id="table-content" class="row mt-4 table-responsive"> -->
+            <div id="table-content" class="row mt-4 flex-grow-1 overflow-auto">
+                <div class="col">
+                    <table class="table table-striped table-sm" id="tabelaRegistros">
+                        <thead class="thead-light">
+                            <th id='setor'>Setor</th>
+                            <th id='tpEqui'>Tipo de Equipamento</th>
+                            <th id='modelo'>Modelo</th>
+                            <th id='data'>Data</th>
+                            <th id='patrimonio'>Patrimônio</th>
+                            <th id='nrSerie'>Número de Série</th>
+                        </thead>
+
+                        <tbody>
+                        </tbody>
+
+                        <tfoot class="bg-light">
+                            <tr>
+                                <td colspan="6"><a id="txtTotalRegistros">Total de Registros : 0</a></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL DE CADASTRO DA INSPEÇÃO -->
+        <div class="modal fade" data-backdrop="static" id="staticBackdrop">
+            <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h3 class="modal-title text-light">Cadastro de preventiva</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        <form autocomplete="off" id="formCliente">
+                            <div class="d-md-flex justify-content-between">
+                                <div class="col-md-5 p-0">
+                                    <label for="txtSetor" class="col-form-label">Setor</label>
+                                    <input type="text" class="form-control" id="txtSetor" value="NEONATAL" disabled>
+                                </div>
+
+                                <div class="col-md-5 p-0">
+                                    <label for="txtEquipamento" class="col-form-label">Equipamento</label>
+                                    <input type="text" class="form-control" id="txtEquipamento" value="INCUBADORA"
+                                        disabled>
+                                </div>
+                            </div>
+
+                            <div class="d-md-flex justify-content-between">
+                                <div class="col-md-5 p-0">
+                                    <label for="txtModelo" class="col-form-label">Modelo</label>
+                                    <input type="text" class="form-control" id="txtModelo">
+                                </div>
+
+                                <div class="col-md-5 p-0">
+                                    <label for="txtPatrimonio" class="col-form-label">Patrimônio</label>
+                                    <input type="number" class="form-control" id="txtPatrimonio">
+                                </div>
+                            </div>
+
+                            <div class="col-md-5 p-0">
+                                <label for="txtNs" class="col-form-label">Número de série</label>
+                                <input type="text" class="form-control" id="txtNs">
+                            </div>
+
+                            <hr />
+
+                            <div class="d-md-flex justify-content-between">
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectAbafadoresdeAr" class="col-form-label">Abafadores de ar</label>
+                                    <select name="" id="selectAbafadoresdeAr" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectBandeja" class="col-form-label">Bandeja</label>
+                                    <select name="" id="selectBandeja" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-md-flex justify-content-between">
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectCabodeForca" class="col-form-label">Cabo de força</label>
+                                    <select name="" id="selectCabodeForca" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectCapadoColchao" class="col-form-label">Capa do colchão</label>
+                                    <select name="" id="selectCapadoColchao" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-md-flex justify-content-between">
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectChaveLigaDesliga" class="col-form-label">Chave
+                                        liga/desliga</label>
+                                    <select name="" id="selectChaveLigaDesliga" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectColchao" class="col-form-label">Colchão</label>
+                                    <select name="" id="selectColchao" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-md-flex justify-content-between">
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectConjuntodoTrinco" class="col-form-label">Conjunto do
+                                        trinco</label>
+                                    <select name="" id="selectConjuntodoTrinco" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectFiltro" class="col-form-label">Filtro</label>
+                                    <select name="" id="selectFiltro" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-md-flex justify-content-between">
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectGuarnicaodaBase" class="col-form-label">Guarnição Base</label>
+                                    <select name="" id="selectGuarnicaodaBase" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectGuarnicaodaPortinhola" class="col-form-label">Guarnição
+                                        Portinhola</label>
+                                    <select name="" id="selectGuarnicaodaPortinhola" class="form-control legendas"
+                                        required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-md-flex justify-content-between">
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectHastesVerticais" class="col-form-label">Hastes verticais</label>
+                                    <select name="" id="selectHastesVerticais" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectMangaIris" class="col-form-label">Manga Íris</label>
+                                    <select name="" id="selectMangaIris" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-md-flex justify-content-between">
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectMotorSincrono" class="col-form-label">Motor síncrono</label>
+                                    <select name="" id="selectMotorSincrono" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectPortinholas" class="col-form-label">Portinholas</label>
+                                    <select name="" id="selectPortinholas" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-md-flex justify-content-between">
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectRodizioscomFreio" class="col-form-label">Rodízios c/Freio</label>
+                                    <select name="" id="selectRodizioscomFreio" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectSensorArSeguranca" class="col-form-label">Sensor de ar e
+                                        segurança</label>
+                                    <select name="" id="selectSensorArSeguranca" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-md-flex justify-content-between">
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectSensorFaltaVentilacao" class="col-form-label">Sensor de
+                                        ventilação</label>
+                                    <select name="" id="selectSensorFaltaVentilacao" class="form-control legendas"
+                                        required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 col-md-5 p-0">
+                                    <label for="selectTecladoMembrana" class="col-form-label">Teclado de
+                                        membrana</label>
+                                    <select name="" id="selectTecladoMembrana" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-md-flex justify-content-between">
+                                <div class="col-sm-12 col-md-5 col-lg-5 p-0">
+                                    <label for="selectVentoinha" class="col-form-label">Ventoinha</label>
+                                    <select name="" id="selectVentoinha" class="form-control legendas" required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-sm-12 col-md-5 col-lg-5 p-0">
+                                    <label for="selectVerificacaoAlarmes" class="col-form-label">Alarmes</label>
+                                    <select name="" id="selectVerificacaoAlarmes" class="form-control legendas"
+                                        required>
+                                        <option value="">-- Selecione uma opção</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <hr />
+                            <!-- Observações -->
+                            <div>
+                                <label for="txtObs" class="col-form-label">Observações</label>
+                                <textarea class="form-control" id="txtObs" rows="8"></textarea>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Botões -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light border-dark" id="btnCancelar"
+                            data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btnAccent text-white" id="btnSalvar">Cadastrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/moment.js"></script>
+    <!-- <script src="./js/create.js"></script> -->
+    <!-- <script src="./js/repository.js"></script> -->
+    <!-- <script src="./js/index.js"></script> -->
+    <script src="./js/preventivas/incubadora.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+        integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

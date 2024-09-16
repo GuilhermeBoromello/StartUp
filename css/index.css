@@ -1,0 +1,130 @@
+/* 
+new RegExp() - Para fazer o filtro da tabela
+event input - Para verificar o evento do texto de pesquisa
+parentNode - para selecionar o pai do elemento
+Para filtrar, escondemos quem nao tem o valor digitado no filtro
+*/
+
+/* e8e7e3 */
+
+:root
+{
+    --background-page: #F4F3EF;    
+    --primary-color: #373435;
+    --accent-color: #0D6EFD;
+    --text-color-light: #7B7B7B;
+    --background-input: #E1E1E6;
+    --color-text-menu: #E1E1E6;
+    --color-white: #FFF;
+    --font-family: 'kumbh Sans', 'Open Sans', 'Sans-Serif', Helvetica;
+}
+
+* {font-family: var(--font-family); font-weight: 200;}
+
+/* Estilização Menu lateral */
+
+header
+{
+    /* background-color: var(--primary-color); */
+    background-color: #0D6EFD;
+    height: 100vh;
+}
+
+header img
+{
+    /* background-color: var(--background-page); */
+    border-radius: 50%;
+    height: 80px;
+    width: 70px;
+}
+
+.container h1 { font-size: 2em; }
+.container h2 { font-size: 1.5em; }
+
+#menu ul > li
+{
+    color: var(--color-text-menu);
+    /* padding: .5em 1em; */
+    transition: ease-out .5s;
+}
+
+#menu ul > li:hover
+#menu ul .menu-link:hover
+{
+    background-color: rgba(255, 255, 255, 0.2);
+    color: var(--color-text-menu);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.menu-link
+{
+    align-items: center;
+    color: var(--color-text-menu);
+    display: flex;
+    transition: ease-out .5s;
+}
+
+.menu-main-li > .menu-link
+{  padding: .5em 1em; }
+
+/* .menu-sub-li > .menu-link
+{ padding: .5em 2em; } */
+
+/* Estilização main */
+
+main
+{
+    background-color: var(--background-page);
+    flex-grow: 1;
+    max-height: 100vh;
+}
+
+main > .container
+{max-height: 100%;}
+
+#actionPanel
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+#actionPanel input, #actionPanel select
+{ background-color: var(--background-input); }
+
+div > .btnAccent
+{ 
+    background-color: var(--accent-color); 
+    border-color: var(--accent-color);
+}
+
+div > .btnAccent:hover
+{ 
+    background-color: #0D6EFD; 
+    border-color: #0D6EFD;
+}
+
+td[class*='action-column'] > i
+{ transition: ease .2s; }
+
+td[class*='action-column'] > i:hover
+{
+    cursor: pointer;
+    color: var(--accent-color);
+}
+
+#table-content
+{ user-select: none; }
+
+.div-row-box
+{
+    height: 15px;
+    width: 15px;
+    border: 1px solid red;
+    background-color: purple;
+}
+
+.row-grafico 
+{
+    height: 250px;
+}
